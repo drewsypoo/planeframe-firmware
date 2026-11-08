@@ -43,6 +43,6 @@ The frame also understands `aircraftUrl`, `callsignUrl` and `routeUrl`, which mo
 
 ## Rules
 
-- **Nothing secret goes in a release.** Everything here is public. In particular, never put a `flightAwareKey` in a manifest: each frame has its own key, entered at setup.
+- **Nothing secret goes in a release.** Everything here is public. In particular, never put a `flightAwareKey` in a manifest or build it into the firmware. The FlightAware key is typed into each frame once, by the builder, on the Wi-Fi setup page, and lives in the frame's own memory from then on. The person who receives the frame never needs an account.
 - **Releases are published by CI** from the source repository, using the *Publish board firmware* workflow. It refuses to publish if the FlightAware key is compiled into the firmware, or if the version already exists here.
 - **Versions only go up.** To withdraw a bad release, publish a fixed one with a higher version. Deleting a release makes `latest` point at the previous one, but frames that already installed the bad version won't go back down to it.
