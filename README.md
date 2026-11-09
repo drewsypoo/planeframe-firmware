@@ -25,8 +25,8 @@ Frames download from here without logging in, which is why this repository is pu
 
 ```json
 {
-  "version": "2.8.0",
-  "firmware": "https://github.com/drewsypoo/planeframe-firmware/releases/download/v2.8.0/firmware.bin",
+  "version": "2.9.0",
+  "firmware": "https://github.com/drewsypoo/planeframe-firmware/releases/download/v2.9.0/firmware.bin",
   "md5": "32 hex characters",
   "sha256": "64 hex characters"
 }
@@ -39,10 +39,10 @@ Frames download from here without logging in, which is why this repository is pu
 | `md5` | Checked by the frame before it installs. |
 | `sha256` | Recorded for the stronger check coming in a later firmware. |
 
-The frame also understands `aircraftUrl`, `callsignUrl` and `routeUrl`, which move every frame to a different data source without a firmware update. Leave them out unless a data source has moved.
+The frame also understands `aircraftUrl`, `callsignUrl`, `routeUrl` and `flightAwareUrl`, which move every frame to a different data source (or a new address for the FlightAware proxy) without a firmware update. Leave them out unless something has moved.
 
 ## Rules
 
-- **Nothing secret goes in a release.** Everything here is public. In particular, never put a `flightAwareKey` in a manifest or build it into the firmware. The FlightAware key is typed into each frame once, by the builder, on the Wi-Fi setup page, and lives in the frame's own memory from then on. The person who receives the frame never needs an account.
+- **Nothing secret goes in a release.** Everything here is public. In particular, never put a `flightAwareKey` in a manifest or build it into the firmware. No frame holds a FlightAware key: frames talk to a small proxy of ours, which holds the key and adds it on the way through. The person who receives a frame never needs an account, and never types a key.
 - **Releases are published by CI** from the source repository, using the *Publish board firmware* workflow. It refuses to publish if the FlightAware key is compiled into the firmware, or if the version already exists here.
 - **Versions only go up.** To withdraw a bad release, publish a fixed one with a higher version. Deleting a release makes `latest` point at the previous one, but frames that already installed the bad version won't go back down to it.
